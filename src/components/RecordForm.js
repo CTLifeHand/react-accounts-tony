@@ -9,7 +9,7 @@ export default class RecordForm extends Component {
     this.state = {
       date:"",
       title:"",
-      amout:"",
+      amount:"",
     }
   }
 
@@ -25,15 +25,24 @@ export default class RecordForm extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    RecordsAPI.creat(this.state).then(
+
+
+    const data = {
+      date: this.state.date,
+      title: this.state.title,
+      amount: Number.parseInt(this.state.amount, 0)
+    };
+
+
+    RecordsAPI.creat(data).then(
       res => {
         this.props.handleNewRecord(res.data)
-
+        console.log(res.data)
         // 清空
         this.setState({
           date: "",
           title: "",
-          amout: "",
+          amount: "",
         })
       }
 
@@ -43,7 +52,7 @@ export default class RecordForm extends Component {
   }
 
   valid(){
-    return this.state.date && this.state.title && this.state.amout;
+    return this.state.date && this.state.title && this.state.amount;
   }
 
   render() {
@@ -57,7 +66,7 @@ export default class RecordForm extends Component {
             <input type="text" className="form-control" placeholder="Title" name="title" value={this.state.title} onChange={this.handleChange.bind(this)}/>
           </div>
           <div className="form-group mr-1">
-            <input type="text" className="form-control" placeholder="Amount" name="amout" value={this.state.amout} onChange={this.handleChange.bind(this)}/>
+            <input type="text" className="form-control" placeholder="Amount" name="amount" value={this.state.amount} onChange={this.handleChange.bind(this)}/>
           </div>
           <button type="submit" className="btn btn-primary" disabled={!this.valid()}>Create Record</button>
         </form>

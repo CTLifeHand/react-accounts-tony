@@ -4,4 +4,6 @@ const api = process.env.REACT_APP_RECORDS_API_URL || "https://5b172ef5f5c9b70014
 
 
 export const getAll = () => axios.get(`${api}/api/v1/records`);
-export const creat = (body) => axios.post(`${api}/api/v1/records`,body);
+export const creat = (body) => axios.post(`${api}/api/v1/records`, body);
+export const update = (id,body) => axios.put(`${api}/api/v1/records/${id}`, body);
+export const remove = (id) =>  axios.delete(`${api}/api/v1/records/${id}`)
